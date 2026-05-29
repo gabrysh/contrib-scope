@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ContribScope</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+      </svg>
+      <span>ContribScope</span>
+    </div>
+    <p class="tagline">Visualize GitHub repository contribution stats</p>
+  </header>
+
+  <main>
+    <section class="input-section">
+      <div class="input-group">
+        <label for="repo-input">Repository (owner/repo)</label>
+        <input
+          type="text"
+          id="repo-input"
+          placeholder="e.g. torvalds/linux"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+      <div class="input-group">
+        <label for="token-input">
+          GitHub Token
+          <span class="optional">(optional — increases rate limit to 5000 req/h)</span>
+        </label>
+        <input
+          type="password"
+          id="token-input"
+          placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+          autocomplete="off"
+        />
+      </div>
+      <button id="fetch-btn">Analyze</button>
+    </section>
+
+    <div id="error-box" class="error-box hidden"></div>
+
+    <section id="results" class="results hidden">
+
+      <div class="stats-bar">
+        <div class="stat-card">
+          <span class="stat-value" id="stat-total-commits">—</span>
+          <span class="stat-label">Total Commits</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="stat-contributors">—</span>
+          <span class="stat-label">Contributors</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="stat-top-user">—</span>
+          <span class="stat-label">Top Contributor</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="stat-top-pct">—</span>
+          <span class="stat-label">Top Contributor %</span>
+        </div>
+      </div>
+
+      <div class="chart-and-search">
+        <div class="chart-wrapper">
+          <canvas id="contrib-chart"></canvas>
+        </div>
+        <div class="search-panel">
+          <label for="user-search">Search contributor</label>
+          <input
+            type="text"
+            id="user-search"
+            placeholder="username..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <div id="user-highlight" class="user-highlight hidden"></div>
+        </div>
+      </div>
+
+      <section class="list-section">
+        <h2>All Contributors</h2>
+        <div class="list-header">
+          <span>#</span>
+          <span>User</span>
+          <span>Commits</span>
+          <span>Share</span>
+        </div>
+        <ul id="contrib-list"></ul>
+      </section>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      Data from <a href="https://docs.github.com/en/rest/repos/repos#list-repository-contributors" target="_blank" rel="noopener">GitHub REST API</a>.
+      Contributions = commit count.
+    </p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
