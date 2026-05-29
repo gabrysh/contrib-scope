@@ -1,5 +1,7 @@
 # ContribScope
 
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+
 Visualize the contribution breakdown of any public GitHub repository — no backend required.
 
 ## Features
